@@ -17,7 +17,8 @@
 <script>
 (()=>{const b='20260713-hotfix1';window.__MURETTO_BUILD__=b;try{const k='muretto-build';if(localStorage.getItem(k)!==b){localStorage.setItem(k,b);if('caches'in window)caches.keys().then(a=>Promise.all(a.filter(n=>n.startsWith('muretto-')).map(n=>caches.delete(n))));if('serviceWorker'in navigator)navigator.serviceWorker.getRegistrations().then(a=>a.forEach(r=>r.update()));}}catch(_e){}})();
 </script>
-<link rel="stylesheet" href="../assets/app-v8.css?v=20260713-visual4">
+<link rel="stylesheet" href="../assets/app-v9.css?v=20260713-pitwall1">
+<link rel="stylesheet" href="../assets/pitwall-radio.css?v=20260713-pitwall1">
 </head>
 <body>
 <a class="skiplink" href="#main-content" data-i18n="a11y.skip">Salta al contenuto</a>
@@ -325,6 +326,8 @@
     <div class="ctrlrow" style="margin-top:14px"><button class="btn danger" onclick="resetCareer()" data-i18n="settings.reset">Azzera carriera e progressi</button><button class="btn primary" onclick="closeSettings()" data-i18n="settings.done">Fatto</button></div>
   </div>
 </dialog>
-<script src="../assets/app-v8.js?v=20260713-visual4" defer></script>
+<script src="../assets/radio-config.js?v=20260713-pitwall1" defer></script>
+<script src="../assets/app-v9.js?v=20260713-pitwall1" defer></script>
+<script src="../assets/pitwall-radio.js?v=20260713-pitwall1" defer></script>
 </body>
 </html>

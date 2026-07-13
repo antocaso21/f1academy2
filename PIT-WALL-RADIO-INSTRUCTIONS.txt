@@ -1,0 +1,9 @@
+1. Extract this ZIP.
+2. GitHub Desktop → Repository → Show in Explorer.
+3. Copy everything INSIDE the extracted folder into the f1academy2 repository folder.
+4. Replace existing destination files.
+5. Commit: Add Pit Wall Radio conversations
+6. Push origin.
+7. After GitHub Pages deploys, press Ctrl+F5 once.
+
+The radio works immediately in Local Intelligence mode. The optional real generative-AI backend is documented in AI-BACKEND-SETUP.md.

@@ -1,68 +1,71 @@
-# Muretto Academy — optimized GitHub Pages build
+# MURETTO — F1 Strategy Academy
 
-This is the deployable, bilingual production build of **Muretto**, the Formula 1 strategy academy and race simulator.
+Deployable bilingual GitHub Pages build of the MURETTO strategy academy and race simulator.
 
-## Deployment
+## Deployment with GitHub Desktop
 
-1. Open the GitHub repository that publishes `https://antocaso21.github.io/f1academy2/`.
-2. Replace the current published files with **the contents of this folder**. Do not upload the parent folder itself.
-3. Keep `.nojekyll` in the repository root.
-4. Commit and push, then confirm that GitHub Pages deploys from the intended branch and root folder.
-5. After deployment, hard-refresh the site once. The service worker will cache the application shell for later offline use.
+1. Extract this package.
+2. In GitHub Desktop open the `f1academy2` repository and choose **Repository → Show in Explorer**.
+3. Copy **all files and folders inside this package** into the repository folder. Do not copy the ZIP itself or an extra parent folder.
+4. Choose **Replace the files in the destination** when prompted.
+5. Commit with `Add Pit Wall Radio conversations` and push to origin.
+6. Wait for GitHub Pages deployment, then perform one hard refresh with `Ctrl + F5`.
 
-The build has no package-manager or compilation step: it is plain HTML, CSS and JavaScript and can be published directly.
+The project is plain HTML, CSS and JavaScript and requires no build command.
+
+## Pit Wall Radio
+
+The live race now contains a two-way strategist–driver conversation system.
+
+- the driver asks context-sensitive questions about weather, tyres, battery, traffic, pit windows, damage, Safety Car, VSC and red flags;
+- questions and reactions change with the selected driver profile;
+- the strategist can answer with quick calls or free text in Italian or English;
+- understood commands alter the real simulator state: pace, energy mode, pit compound, staying out and Overtake;
+- vague, contradictory, delayed or strategically poor calls affect Trust, Clarity, Accuracy and Composure;
+- the strategist can request driver reports on grip, stint extension, balance, track wetness, damage and traffic;
+- the final result includes a communication debrief.
+
+The default **Local Intelligence** mode works immediately on GitHub Pages without accounts, servers or API keys. It is deterministic and keeps the simulator as the sole source of telemetry and race consequences.
+
+## Optional generative-AI mode
+
+A secure optional backend is included in `backend/cloudflare-worker.js`. It can produce more varied driver reactions and evaluate free-text radio calls while the local simulator still validates and applies every operational action.
+
+Setup instructions are in `AI-BACKEND-SETUP.md`. Never place an API key in `radio-config.js`, HTML, or any public browser JavaScript.
 
 ## Clean URL structure
 
-### Main sections
-
-- `/f1academy2/` — home and game rules
-- `/f1academy2/academy/` — Academy, filters, glossary and 24 dossiers
-- `/f1academy2/career/driver/` — driver-profile selection
+- `/f1academy2/` — home and rules
+- `/f1academy2/academy/` — Academy, glossary and GP dossiers
+- `/f1academy2/career/driver/` — driver profile selection
 - `/f1academy2/career/calendar/` — career calendar
+- `/f1academy2/academy/gp/australia/` — Academy GP dossier
+- `/f1academy2/career/gp/australia/` — race briefing
+- `/f1academy2/race/australia/` — live race
+- `/f1academy2/results/australia/` — saved result
 
-### Per-Grand-Prix routes
+Equivalent physical pages are included for all 24 GP slugs, so direct links and refreshes work on GitHub Pages.
 
-The slug changes for each of the 24 Grands Prix. Examples:
+## Main game systems
 
-- `/f1academy2/academy/gp/australia/` — Academy dossier
-- `/f1academy2/career/gp/australia/` — race briefing and setup
-- `/f1academy2/career/gp/australia/dossier/` — dossier opened from the career flow
-- `/f1academy2/race/australia/` — live-race route
-- `/f1academy2/results/australia/` — stored result route
+- procedural cockpit and steering-wheel views reacting to weather and race state;
+- dynamic weather radar and pit rejoin forecast;
+- tyre wear plus surface/core temperature;
+- battery SOC, recharge/deployment and Detection Line Overtake logic;
+- four driver archetypes affecting behaviour and radio tone;
+- automatic local career saving and stored result routes;
+- decision log, skill matrix and printable debrief;
+- Italian/English interface, accessibility options and keyboard controls;
+- PWA manifest, offline shell, canonical routes, sitemap and responsive layout.
 
-Equivalent physical route pages are included for all 24 GP slugs, so direct links and browser refreshes work on GitHub Pages. `404.html` is retained as a fallback for malformed or future routes.
+## Files added for this release
 
-## Product improvements included
+- `assets/pitwall-radio.js`
+- `assets/pitwall-radio.css`
+- `assets/radio-config.js`
+- `backend/cloudflare-worker.js`
+- `backend/wrangler.toml.example`
+- `AI-BACKEND-SETUP.md`
+- `sw-v9.js`
 
-- URL routing with browser Back/Forward support and route-specific canonical links
-- four driver archetypes that affect tyre use, energy, attack, consistency, errors and radio feedback
-- realistic battery SOC, recharge/deployment and Detection Line–based Overtake logic
-- real-speed starts, with faster simulation modes available only after lights out
-- automatic local career saving, resume card and progress reset
-- Academy and career search/filter tools
-- Academy glossary and contextual strategy assistant
-- decision log, skills matrix and printable/PDF-ready debrief
-- keyboard controls for live races
-- bilingual Italian/English interface and persisted preferences
-- accessibility improvements: skip link, visible focus, reduced motion, high contrast and live regions
-- responsive/mobile layout and sticky race information
-- PWA manifest, icons, offline application shell and service worker
-- SEO metadata, canonical routes, `robots.txt` and `sitemap.xml`
-- externalized shared CSS and JavaScript for browser caching across all routes
-
-## Important behaviour
-
-Career progress, settings and the latest generated result are stored locally in the browser. A race that is currently running can be resumed while the same page session remains open; after a full reload, the user is returned to that GP's briefing because the complete live simulation state is intentionally not serialized.
-
-
-## Race Intelligence upgrade
-
-The live race now includes five switchable views (circuit map, weather radar, simulated onboard, simulated Helmet Cam and steering-wheel telemetry), tyre surface/core temperatures, weather-confidence information and predicted pit rejoin traffic. These are educational visualisations rather than real broadcast or team telemetry.
-
-
-## Visual Suite v3
-Helmet Cam removed. Cockpit and steering-wheel views rebuilt as high-resolution training visualisations. Shared assets are `assets/app-v7.css` and `assets/app-v7.js`.
-
-
-Visual Suite v4 replaces the cockpit and steering-wheel canvases with a higher-fidelity procedural renderer (dynamic track perspective, environment-specific scenery, wet reflections, opponent car, cockpit details, gloves and detailed formula-style wheel). Shared assets: `assets/app-v8.css` and `assets/app-v8.js`.
+Shared game assets are now `assets/app-v9.js` and `assets/app-v9.css`.
