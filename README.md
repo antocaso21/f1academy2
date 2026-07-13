@@ -54,3 +54,8 @@ Equivalent physical route pages are included for all 24 GP slugs, so direct link
 ## Important behaviour
 
 Career progress, settings and the latest generated result are stored locally in the browser. A race that is currently running can be resumed while the same page session remains open; after a full reload, the user is returned to that GP's briefing because the complete live simulation state is intentionally not serialized.
+
+
+## Race Intelligence upgrade
+
+The live race now includes five switchable views (circuit map, weather radar, simulated onboard, simulated Helmet Cam and steering-wheel telemetry), tyre surface/core temperatures, weather-confidence information and predicted pit rejoin traffic. These are educational visualisations rather than real broadcast or team telemetry.

@@ -1007,6 +1007,21 @@ Object.assign(I18N,{
  'res.print':{it:'Stampa / salva PDF',en:'Print / save PDF'},
  'footer':{it:'I progressi della carriera vengono salvati automaticamente su questo dispositivo.',en:'Career progress is saved automatically on this device.'}
 });
+Object.assign(I18N,{
+ 'view.circuit':{it:'Circuito',en:'Circuit'},'view.radar':{it:'Radar',en:'Radar'},'view.onboard':{it:'Onboard',en:'Onboard'},'view.helmet':{it:'Helmet Cam',en:'Helmet Cam'},'view.wheel':{it:'Volante',en:'Steering wheel'},
+ 'radar.forecast':{it:'Previsione',en:'Forecast'},'radar.confidence':{it:'Affidabilità {0}%',en:'Confidence {0}%'},'radar.now':{it:'situazione attuale',en:'current conditions'},'radar.future':{it:'previsione a +{0} min',en:'+{0} min forecast'},
+ 'thermal.surface':{it:'Superficie',en:'Surface'},'thermal.core':{it:'Carcassa',en:'Core'},'thermal.window':{it:'Finestra',en:'Window'},'thermal.cold':{it:'Fredda',en:'Cold'},'thermal.ok':{it:'Ottimale',en:'Optimal'},'thermal.hot':{it:'Surriscaldata',en:'Overheated'},
+ 'thermal.cold.effect':{it:'Meno grip e rischio graining.',en:'Less grip and graining risk.'},'thermal.ok.effect':{it:'Grip e degrado nella finestra corretta.',en:'Grip and degradation in the correct window.'},'thermal.hot.effect':{it:'Grip in calo e degrado termico più rapido.',en:'Falling grip and faster thermal degradation.'},
+ 'pitforecast.h':{it:'Finestra pit e traffico previsto',en:'Pit window and predicted traffic'},'pitforecast.rejoin':{it:'Rientro stimato',en:'Estimated rejoin'},'pitforecast.traffic':{it:'Traffico',en:'Traffic'},'pitforecast.call':{it:'Lettura strategica',en:'Strategic reading'},
+ 'pitforecast.loss':{it:'pit loss {0}s',en:'pit loss {0}s'},'pitforecast.clear':{it:'aria libera',en:'clear air'},'pitforecast.cars':{it:'{0} vetture',en:'{0} cars'},'pitforecast.safe':{it:'Finestra pulita',en:'Clean window'},'pitforecast.risk':{it:'Rientro nel traffico',en:'Rejoin in traffic'},'pitforecast.undercut':{it:'Possibile undercut',en:'Possible undercut'},'pitforecast.protect':{it:'Proteggi la posizione',en:'Protect position'},
+ 'pitforecast.detail.clear':{it:'La sosta ti riporterebbe in una finestra relativamente libera.',en:'The stop would return you to a relatively clear window.'},'pitforecast.detail.traffic':{it:'Attenzione: potresti rientrare vicino a {0}.',en:'Caution: you may rejoin close to {0}.'},
+ 'source.radar':{it:'📡 Radar: {0}% affidabile',en:'📡 Radar: {0}% confidence'},'source.driver.stable':{it:'🎧 Pilota: grip stabile',en:'🎧 Driver: stable grip'},'source.driver.front':{it:'🎧 Pilota: anteriore freddo',en:'🎧 Driver: cold front end'},'source.driver.rear':{it:'🎧 Pilota: posteriore caldo',en:'🎧 Driver: hot rear axle'},'source.driver.wet':{it:'🎧 Pilota: grip variabile',en:'🎧 Driver: changing grip'},
+ 'source.track.dry':{it:'🛣️ Pista: linea asciutta',en:'🛣️ Track: dry line'},'source.track.damp':{it:'🛣️ Pista: settori disomogenei',en:'🛣️ Track: mixed sectors'},'source.track.wet':{it:'🛣️ Pista: acqua in aumento',en:'🛣️ Track: standing water increasing'},
+ 'pg.thermal':{it:'Controllo termico',en:'Thermal control'},'pg.thermal.ok':{it:'Hai mantenuto le gomme nella finestra per la maggior parte della gara.',en:'You kept the tyres in their window for most of the race.'},'pg.thermal.ko':{it:'Hai accumulato {0} giri fuori finestra.',en:'You accumulated {0} laps outside the operating window.'},
+ 'decision.view':{it:'Visuale cambiata: {0}.',en:'View changed: {0}.'},'decision.radar':{it:'Radar consultato a +{0} minuti.',en:'Radar checked at +{0} minutes.'},
+ 'view.label.circuit':{it:'MAPPA LIVE',en:'LIVE MAP'},'view.label.radar':{it:'RADAR METEO',en:'WEATHER RADAR'},'view.label.onboard':{it:'ONBOARD SIMULATA',en:'SIMULATED ONBOARD'},'view.label.helmet':{it:'HELMET CAM SIMULATA',en:'SIMULATED HELMET CAM'},'view.label.wheel':{it:'TELEMETRIA VOLANTE',en:'STEERING WHEEL TELEMETRY'},
+ 'settings.keys':{it:'<b>Scorciatoie gara:</b> <span class="kbd">Spazio</span> pausa, <span class="kbd">N</span> giro, <span class="kbd">1–3</span> ritmo, <span class="kbd">Q–E</span> energia, <span class="kbd">O</span> Overtake, <span class="kbd">B</span> box, <span class="kbd">V</span> cambia visuale, <span class="kbd">R</span> radar.',en:'<b>Race shortcuts:</b> <span class="kbd">Space</span> pause, <span class="kbd">N</span> lap, <span class="kbd">1–3</span> pace, <span class="kbd">Q–E</span> energy, <span class="kbd">O</span> Overtake, <span class="kbd">B</span> box, <span class="kbd">V</span> cycle view, <span class="kbd">R</span> radar.'}
+});
 function fmt(s, ...args){ return args.reduce((acc,a,i)=>acc.split('{'+i+'}').join(a), s); }
 function pick(k){ const arr = I18N[k][LANG] ?? I18N[k].it; return arr[Math.floor(Math.random()*arr.length)]; }
 /* ============ Diagrammi SVG (i18n) ============ */
@@ -1264,7 +1279,7 @@ window.addEventListener('keydown',e=>{
   if(e.target&&['INPUT','SELECT','TEXTAREA'].includes(e.target.tagName))return;
   if(e.key==='Escape'){closeSettings();return}
   const racing=document.getElementById('screen-race')?.classList.contains('active')&&S&&S.started&&!S.ended;if(!racing)return;
-  const k=e.key.toLowerCase();if(k===' '){e.preventDefault();toggleAuto()}else if(k==='n')manualLap();else if(k==='1')setPace('push');else if(k==='2')setPace('norm');else if(k==='3')setPace('save');else if(k==='q')setEnergyMode('recharge');else if(k==='w')setEnergyMode('balanced');else if(k==='e')setEnergyMode('deploy');else if(k==='o')useAttack();else if(k==='b')toggleBoxMenu();
+  const k=e.key.toLowerCase();if(k===' '){e.preventDefault();toggleAuto()}else if(k==='n')manualLap();else if(k==='1')setPace('push');else if(k==='2')setPace('norm');else if(k==='3')setPace('save');else if(k==='q')setEnergyMode('recharge');else if(k==='w')setEnergyMode('balanced');else if(k==='e')setEnergyMode('deploy');else if(k==='o')useAttack();else if(k==='b')toggleBoxMenu();else if(k==='v'){const i=RACE_VIEWS.indexOf(liveView);setRaceView(RACE_VIEWS[(i+1)%RACE_VIEWS.length])}else if(k==='r')setRaceView('radar');
 });
 function logDecision(kind,text){if(!S||S.initializing)return;S.decisions=S.decisions||[];S.decisions.push({lap:Math.min(S.lap,S.c.laps),kind,text});if(S.decisions.length>80)S.decisions.shift()}
 function renderAdvisor(){
@@ -1481,7 +1496,7 @@ async function startStrat(ci, startTyre){
   const myGrid = 4 + Math.floor(Math.random()*8);
   const cars = []; let gi = 0;
   for(let p=0; p<21; p++){
-    const base = {tyre:'M', wear:0, stint:0, time:p*0.35, pits:0, out:false, vp:-p*0.005, tp:0, fresh:0, dmg:0, pen:0, battery:58+Math.random()*25, energyMode:'balanced', otActive:false, otNext:false, detGap:null};
+    const base = {tyre:'M', wear:0, stint:0, time:p*0.35, pits:0, out:false, vp:-p*0.005, tp:0, fresh:0, dmg:0, pen:0, battery:58+Math.random()*25, energyMode:'balanced', otActive:false, otNext:false, detGap:null, tyreSurface:82+Math.random()*8, tyreCore:80+Math.random()*6};
     if(p === myGrid){
       cars.push(Object.assign(base, {me:true, name:PLAYER_NAME, team:"Scuderia Aurora", skill:.93, tyre:startTyre,
         used:new Set(['S','M','H'].includes(startTyre)?[startTyre]:[]), pace:'norm', pitArmed:null, battery:72}));
@@ -1496,10 +1511,11 @@ async function startStrat(ci, startTyre){
     cr.used = new Set(['S','M','H'].includes(cr.tyre)?[cr.tyre]:[]);
     cr.plan = { pitWear: 70 + Math.random()*14 };
   }});
+  cars.forEach(cr=>resetTyreTemperatures(cr,wx[0],true));
   S = { ci, c, fx, wx, lap:1, cars, driverProfile:selectedDriverProfile||'metronome', sc:0, vsc:0, red:false, redDone:false, scMult, lateSC, started:false, starting:false,
-    visualProgress:0, dryStreak: wx[0]===0?99:0, ended:false, atkNow:false, myWarn:0, myLaps:[], detectionGap:1.0,decisions:[],initializing:true,
+    visualProgress:0, dryStreak: wx[0]===0?99:0, ended:false, atkNow:false, myWarn:0, myLaps:[], detectionGap:1.0,decisions:[],initializing:true, liveView:'circuit', radarOffset:0, weatherSeed:Math.floor(Math.random()*1000000), radarConfidence:82+Math.floor(Math.random()*12),
     metrics:{ slickRain:0, overWear:0, scHappened:false, scPit:false, alreadyStoppedAtSC:false,
-      rainStart:null, rainReacts:[], spins:0, grid:myGrid+1, quiz:preQuizOK, wxEver:false, pen:0, energyStarve:0, energyCritical:0, otQualified:0, otUsed:0, otMissedLowBattery:0, rechargeLaps:0,minBattery:100,maxWear:0,paceLaps:{push:0,norm:0,save:0},energyLaps:{recharge:0,balanced:0,deploy:0} } };
+      rainStart:null, rainReacts:[], spins:0, grid:myGrid+1, quiz:preQuizOK, wxEver:false, pen:0, energyStarve:0, energyCritical:0, otQualified:0, otUsed:0, otMissedLowBattery:0, rechargeLaps:0,minBattery:100,maxWear:0,hotLaps:0,coldLaps:0,paceLaps:{push:0,norm:0,save:0},energyLaps:{recharge:0,balanced:0,deploy:0} } };
   document.getElementById('race-gpname').textContent = `${c.flag} ${gpName(ci)} — 📚 ${L.t}`;
   document.getElementById('race-laps').textContent = c.laps;
   document.getElementById('radio').innerHTML = '';
@@ -1521,7 +1537,8 @@ async function startStrat(ci, startTyre){
   const idealWin = Math.round(70/(TYRES[startTyre].deg*c.deg));
   if(wx[0]===0) radio(t('who.eng'), fmt(t('r.window'), Math.max(3,idealWin-3), idealWin+4), '');
   showScreen('screen-race');
-  renderRace(); drawLapChart(); drawTrack();
+  setRaceView('circuit',true);
+  renderRace(); drawLapChart(); renderLiveVisual();
   clearInterval(autoTimer); autoTimer=null;
   curSpeed = 'reale';
   setSpeed('reale');
@@ -1699,6 +1716,7 @@ function renderEnergyUI(){
 function toggleBoxMenu(){
   const el = document.getElementById('box-compounds');
   el.style.display = el.style.display==='none' ? 'flex' : 'none';
+  renderPitForecast();
 }
 function armPit(tk){
   if(!S || !S.started) return;
@@ -1706,7 +1724,7 @@ function armPit(tk){
   me.pitArmed = tk;
   document.getElementById('box-compounds').style.display='none';
   document.getElementById('pit-armed-line').innerHTML = `🛠️ → <b>${tyLabel(tk)}</b> <button class="btn" style="padding:2px 8px;font-size:11px;" onclick="cancelPit()">✕</button>`;
-  radio(t('who.you'), fmt(t('r.boxarm'), tyLabel(tk)), 'warn');logDecision('pit',fmt(t('decision.pit'),tyLabel(tk)));
+  radio(t('who.you'), fmt(t('r.boxarm'), tyLabel(tk)), 'warn');logDecision('pit',fmt(t('decision.pit'),tyLabel(tk)));renderPitForecast(tk);
 }
 function cancelPit(){
   S.cars.find(x=>x.me).pitArmed = null;
@@ -1760,7 +1778,7 @@ function redTyre(tk){
 function resumeFromRed(){
   const me = S.cars.find(x=>x.me);
   if(redChoice){
-    me.tyre = redChoice; me.wear = 0; me.stint = 0; me.fresh = 2; me.dmg = 0;
+    me.tyre = redChoice; me.wear = 0; me.stint = 0; me.fresh = 2; me.dmg = 0; resetTyreTemperatures(me,S.wx[S.lap]||0,false);
     if(['S','M','H'].includes(redChoice)) me.used.add(redChoice);
     radio(t('who.eng'), t('r.rednew'), 'good');
   } else radio(t('who.eng'), t('r.redold'), 'warn');
@@ -1808,6 +1826,39 @@ function simulateEnergy(car, wx, pace, isPlayer){
     if(car.battery<15) S.metrics.energyCritical++;
   }
   return {timeDelta,wearDelta,usedOT,mode};
+}
+
+const TYRE_THERMAL={S:{ideal:103,low:88,high:116},M:{ideal:99,low:84,high:112},H:{ideal:95,low:80,high:108},I:{ideal:75,low:61,high:88},W:{ideal:66,low:52,high:79}};
+function resetTyreTemperatures(car,wx,onGrid){
+  const cfg=TYRE_THERMAL[car.tyre]||TYRE_THERMAL.M;
+  const wet=wx>0, base=wet?cfg.ideal-5:cfg.ideal-8;
+  car.tyreSurface=base+(onGrid?Math.random()*4: -8+Math.random()*3);
+  car.tyreCore=base-3+(onGrid?Math.random()*3:-5+Math.random()*2);
+}
+function tyreThermalState(car){
+  const cfg=TYRE_THERMAL[car.tyre]||TYRE_THERMAL.M;
+  if(car.tyreSurface<cfg.low||car.tyreCore<cfg.low-4)return 'cold';
+  if(car.tyreSurface>cfg.high||car.tyreCore>cfg.high-2)return 'hot';
+  return 'ok';
+}
+function thermalEffects(car){
+  const cfg=TYRE_THERMAL[car.tyre]||TYRE_THERMAL.M,state=tyreThermalState(car);
+  if(state==='cold')return{timePenalty:.24+Math.max(0,cfg.low-car.tyreSurface)*.025,wearMult:1.08,state};
+  if(state==='hot')return{timePenalty:.18+Math.max(0,car.tyreSurface-cfg.high)*.032,wearMult:1.18,state};
+  return{timePenalty:0,wearMult:1,state};
+}
+function updateTyreThermals(car,wx,pace){
+  const cfg=TYRE_THERMAL[car.tyre]||TYRE_THERMAL.M,neutral=S.sc>0||S.vsc>0||S.red;
+  const slick=['S','M','H'].includes(car.tyre),track=S.c.temp+(wx>0?-7:0);
+  let target=cfg.ideal+(pace==='push'?8:pace==='save'?-5:0)+(car.energyMode==='deploy'?4:car.energyMode==='recharge'?-2:0);
+  if(neutral)target-=18;
+  if(wx>0&&slick)target-=10;
+  if(wx===0&&!slick)target+=15;
+  target+=(track-30)*.18;
+  const noise=(Math.random()-.5)*2;
+  car.tyreSurface+=(target-car.tyreSurface)*(neutral?.24:.38)+noise;
+  car.tyreCore+=(car.tyreSurface-3-car.tyreCore)*(neutral?.08:.15);
+  car.tyreSurface=Math.max(35,Math.min(135,car.tyreSurface));car.tyreCore=Math.max(35,Math.min(125,car.tyreCore));
 }
 
 function lapTick(){
@@ -1875,6 +1926,7 @@ function lapTick(){
     let wearMul = 1;
     if(pace==='push'){ lapt -= 0.35*(prof?prof.pushGain:1); wearMul = 1+0.45*(prof?prof.pushWear:1); }
     if(pace==='save'){ lapt += 0.45; wearMul = 0.65*(prof?Math.min(1.08,prof.tyreWear):1); }
+    const therm=thermalEffects(car);lapt+=therm.timePenalty;wearMul*=therm.wearMult;
     const energy = simulateEnergy(car, wx, pace, car.me);
     lapt += energy.timeDelta; wearMul = Math.max(.2, wearMul + energy.wearDelta);
     lapt += (Math.random()-0.5)*0.8*(prof?prof.consistency:1);
@@ -1914,6 +1966,8 @@ function lapTick(){
       else radio(t('who.eng'), t('r.pu'), 'alert'); }
     if(car.out) return;
 
+    updateTyreThermals(car,wx,pace);
+    if(car.me){const ts=tyreThermalState(car);if(ts==='hot')M.hotLaps++;else if(ts==='cold')M.coldLaps++;}
     car.wear = Math.min(100, car.wear + T.deg * c.deg * wearMul * (slick && wx>0 ? 1.6 : 1) * (car.me?driverProfile().tyreWear:1));
 
     if(!car.me){
@@ -1978,7 +2032,7 @@ function doPit(car, tyre){
   let loss = S.c.pit * mult;
   if(car.dmg>0){ loss += 3; car.dmg = 0; if(car.me) radio(t('who.eng'), t('r.wing'), ''); }
   car.time += loss;
-  car.tyre = tyre; car.wear = 0; car.pits++; car.stint = 0; car.fresh = 2;
+  car.tyre = tyre; car.wear = 0; car.pits++; car.stint = 0; car.fresh = 2; resetTyreTemperatures(car,S.wx[S.lap]||0,false);
   if(['S','M','H'].includes(tyre)) car.used && car.used.add(tyre);
   if(car.me){
     if(S.myLaps.length) S.myLaps[S.myLaps.length-1].pit = true;
@@ -2028,7 +2082,7 @@ function renderRace(){
   if(me.pen>0) extra.push(fmt(t('x.pen'), me.pen));
   if(me.battery<15) extra.push(t('x.batt'));
   document.getElementById('my-extra').innerHTML = extra.join(' · ') || t('ok.all');
-  renderEnergyUI();renderAdvisor();
+  renderThermalUI(me);renderEnergyUI();renderAdvisor();renderPitForecast();updateInfoSources();renderLiveVisual();
   const order = S.cars.slice().sort((a,b)=> (a.out?1:0)-(b.out?1:0) || a.time-b.time);
   const lead = order.find(x=>!x.out);
   const tw = document.getElementById('tower'); tw.innerHTML='';
@@ -2044,6 +2098,64 @@ function renderRace(){
     tw.appendChild(d);
   });
 }
+
+let liveView='circuit',radarOffset=0;
+const RACE_VIEWS=['circuit','radar','onboard','helmet','wheel'];
+function raceViewName(v){return t('view.'+v)}
+function setRaceView(view,silent){
+  if(!RACE_VIEWS.includes(view))view='circuit';liveView=view;if(S){S.liveView=view;S.radarOffset=radarOffset;}
+  document.querySelectorAll('.viewtab').forEach(b=>{const on=b.dataset.view===view;b.classList.toggle('sel',on);b.setAttribute('aria-selected',on?'true':'false')});
+  const stage=document.getElementById('visualstage');if(stage)stage.dataset.view=view;
+  document.querySelectorAll('.raceview').forEach(c=>c.classList.remove('active'));
+  const id=view==='circuit'?'trackcv':view==='radar'?'radarcv':view==='wheel'?'wheelcv':'drivecv';document.getElementById(id)?.classList.add('active');
+  const rc=document.getElementById('radar-controls');if(rc)rc.hidden=view!=='radar';
+  const lab=document.getElementById('visual-view-label');if(lab)lab.textContent=t('view.label.'+view);
+  if(!silent&&S)logDecision('view',fmt(t('decision.view'),raceViewName(view)));
+  renderLiveVisual();
+}
+function setRadarOffset(mins){radarOffset=[0,5,10,15].includes(+mins)?+mins:0;if(S)S.radarOffset=radarOffset;document.querySelectorAll('.radarbtn').forEach(b=>b.classList.toggle('sel',+b.dataset.min===radarOffset));if(S)logDecision('radar',fmt(t('decision.radar'),radarOffset));drawWeatherRadar();}
+function renderLiveVisual(){if(!S)return;const v=S.liveView||liveView;liveView=v;radarOffset=S.radarOffset??radarOffset;if(v==='circuit')drawTrack();else if(v==='radar')drawWeatherRadar();else if(v==='wheel')drawWheelView();else drawDriverView(v==='helmet');}
+function canvasCtx(id){const cv=document.getElementById(id);return cv?[cv,cv.getContext('2d')]:[null,null]}
+function seeded01(n){const x=Math.sin((S?.weatherSeed||1)*.001+n*12.9898)*43758.5453;return x-Math.floor(x)}
+function forecastLapForMinutes(mins){const minPerLap=90/Math.max(1,S.c.laps);return Math.min(S.wx.length-1,S.lap+Math.round(mins/minPerLap))}
+function radarConfidenceFor(mins){const volatility=S.wx.slice(Math.max(0,S.lap-2),Math.min(S.wx.length,S.lap+12)).reduce((a,v,i,ar)=>a+(i&&v!==ar[i-1]?1:0),0);return Math.max(38,Math.min(96,(S.radarConfidence||86)-mins*2.25-volatility*2.4))}
+function drawWeatherRadar(){
+  const [cv,ctx]=canvasCtx('radarcv');if(!cv||!ctx||!S)return;const w=cv.width,h=cv.height,fl=forecastLapForMinutes(radarOffset),intensity=S.wx[fl]||0,conf=Math.round(radarConfidenceFor(radarOffset));ctx.clearRect(0,0,w,h);
+  const bg=ctx.createLinearGradient(0,0,0,h);bg.addColorStop(0,'#07131d');bg.addColorStop(1,'#02070b');ctx.fillStyle=bg;ctx.fillRect(0,0,w,h);
+  ctx.strokeStyle='rgba(100,160,190,.12)';ctx.lineWidth=1;for(let x=20;x<w;x+=40){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke()}for(let y=20;y<h;y+=40){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke()}
+  const drift=(S.lap+radarOffset*.7)*9;const cellCount=intensity===0?2:intensity===1?4:6;
+  for(let i=0;i<cellCount;i++){
+    const baseX=(seeded01(i+3)*w+drift*(.65+seeded01(i+15)))%(w+240)-120,baseY=55+seeded01(i+31)*(h-105),r=(intensity===2?80:55)+seeded01(i+50)*65;
+    const g=ctx.createRadialGradient(baseX,baseY,5,baseX,baseY,r);const strength=intensity===0?.12:intensity===1?.38:.62;g.addColorStop(0,intensity===2?`rgba(255,72,62,${strength})`:`rgba(39,170,255,${strength})`);g.addColorStop(.42,intensity===2?'rgba(255,190,40,.34)':'rgba(45,222,195,.28)');g.addColorStop(1,'rgba(30,90,150,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(baseX,baseY,r,0,Math.PI*2);ctx.fill();
+  }
+  if(trackPts&&trackPts.length){ctx.beginPath();trackPts.forEach((p,i)=>{const q=toCanvas(p,w,h);i?ctx.lineTo(q[0],q[1]):ctx.moveTo(q[0],q[1])});ctx.closePath();ctx.strokeStyle='rgba(235,244,250,.82)';ctx.lineWidth=4;ctx.shadowColor='#fff';ctx.shadowBlur=7;ctx.stroke();ctx.shadowBlur=0;for(let s=0;s<3;s++){const q=toCanvas(pointAt(s/3),w,h);ctx.fillStyle=['#ffb000','#50a7ff','#3fb950'][s];ctx.beginPath();ctx.arc(q[0],q[1],6,0,7);ctx.fill();ctx.fillStyle='#fff';ctx.font='bold 9px sans-serif';ctx.fillText('S'+(s+1),q[0]+8,q[1]-7)}}
+  ctx.fillStyle='rgba(4,9,13,.78)';ctx.fillRect(12,h-49,w-24,37);ctx.fillStyle='#e7eef4';ctx.font='bold 12px sans-serif';ctx.fillText((radarOffset?fmt(t('radar.future'),radarOffset):t('radar.now'))+' · '+(intensity===0?(LANG==='it'?'asciutto':'dry'):intensity===1?(LANG==='it'?'pioggia':'rain'):(LANG==='it'?'pioggia forte':'heavy rain')),22,h-28);ctx.fillStyle='#9bc9ff';ctx.textAlign='right';ctx.fillText(fmt(t('radar.confidence'),conf),w-22,h-28);ctx.textAlign='left';
+  const ce=document.getElementById('radar-confidence');if(ce)ce.textContent=fmt(t('radar.confidence'),conf);
+}
+function nearestCarAhead(){const act=S.cars.filter(x=>!x.out).sort((a,b)=>a.time-b.time),me=S.cars.find(x=>x.me),i=act.indexOf(me);return i>0?{car:act[i-1],gap:Math.max(.1,me.time-act[i-1].time)}:null}
+function visualSpeed(){const me=S.cars.find(x=>x.me),wx=S.wx[Math.min(S.lap,S.wx.length-1)]||0;if(S.sc>0)return 105;if(S.vsc>0)return 165;let v=wx===2?215:wx===1?255:305;if(me.pace==='push')v+=18;if(me.pace==='save')v-=22;if(me.energyMode==='deploy')v+=8;return Math.round(v)}
+function drawDriverView(helmet){
+  const [cv,ctx]=canvasCtx('drivecv');if(!cv||!ctx||!S)return;const w=cv.width,h=cv.height,wx=S.wx[Math.min(S.lap,S.wx.length-1)]||0,me=S.cars.find(x=>x.me),now=performance.now()/1000,bob=appSettings.reducedMotion?0:Math.sin(now*8)*1.8;
+  const sky=ctx.createLinearGradient(0,0,0,h*.55);sky.addColorStop(0,wx?'#53636d':'#4f91c7');sky.addColorStop(1,wx?'#b1bac0':'#d7e9f6');ctx.fillStyle=sky;ctx.fillRect(0,0,w,h*.55);ctx.fillStyle=wx?'#31433b':'#426a3c';ctx.fillRect(0,h*.46,w,h*.54);
+  let curve=0;if(trackPts&&trackPts.length){const a=pointAt(me.vp+.02),b=pointAt(me.vp+.08),c=pointAt(me.vp+.15);curve=Math.max(-1,Math.min(1,((b[0]-a[0])*(c[1]-b[1])-(b[1]-a[1])*(c[0]-b[0]))*4))}
+  for(let i=0;i<14;i++){const y1=h*.48+i*i*1.45,y2=h*.48+(i+1)*(i+1)*1.45,half1=38+i*13,half2=38+(i+1)*13,c1=w/2+curve*i*i*1.2,c2=w/2+curve*(i+1)*(i+1)*1.2;ctx.fillStyle=i%2?'#2a3035':'#323940';ctx.beginPath();ctx.moveTo(c1-half1,y1+bob);ctx.lineTo(c1+half1,y1+bob);ctx.lineTo(c2+half2,y2+bob);ctx.lineTo(c2-half2,y2+bob);ctx.fill();ctx.strokeStyle='rgba(255,255,255,.18)';ctx.stroke();if(i%2===0){ctx.fillStyle='#e8e8e8';ctx.fillRect(c2-half2-10,y2-4,10,5);ctx.fillStyle='#e10600';ctx.fillRect(c2+half2,y2-4,10,5)}}
+  const ahead=nearestCarAhead();if(ahead&&ahead.gap<4){const scale=Math.max(.45,1-ahead.gap/5),cx=w/2+curve*110,cy=h*.49+80*(1-scale);ctx.fillStyle=TEAMCOL[ahead.car.team]||'#999';ctx.fillRect(cx-22*scale,cy-8*scale,44*scale,16*scale);ctx.fillStyle='#111';ctx.fillRect(cx-18*scale,cy+6*scale,10*scale,8*scale);ctx.fillRect(cx+8*scale,cy+6*scale,10*scale,8*scale);if(wx){ctx.fillStyle='rgba(220,235,245,.20)';ctx.beginPath();ctx.ellipse(cx,cy+35,50*scale,65*scale,0,0,7);ctx.fill()}}
+  ctx.strokeStyle='#111820';ctx.lineWidth=17;ctx.beginPath();ctx.moveTo(w*.34,h);ctx.quadraticCurveTo(w*.43,h*.58,w*.49,h*.54);ctx.stroke();ctx.beginPath();ctx.moveTo(w*.66,h);ctx.quadraticCurveTo(w*.57,h*.58,w*.51,h*.54);ctx.stroke();ctx.lineWidth=9;ctx.beginPath();ctx.moveTo(w/2,h*.55);ctx.lineTo(w/2,h*.18);ctx.stroke();
+  ctx.fillStyle='rgba(8,14,18,.84)';ctx.fillRect(18,18,185,58);ctx.fillStyle='#fff';ctx.font='900 28px sans-serif';ctx.fillText(visualSpeed()+' km/h',30,51);ctx.font='bold 11px sans-serif';ctx.fillStyle='#ffcf66';ctx.fillText('SOC '+Math.round(me.battery)+'% · '+energyModeLabel(me.energyMode),30,68);
+  if(wx){for(let i=0;i<(wx===2?75:35);i++){const x=(seeded01(i+S.lap*3)*w+now*120*(i%3+1))%w,y=seeded01(i+200)*h;ctx.strokeStyle='rgba(210,235,255,.35)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x-9,y+18);ctx.stroke()}}
+  if(helmet){const vg=ctx.createRadialGradient(w/2,h*.48,h*.18,w/2,h*.5,h*.72);vg.addColorStop(.48,'rgba(0,0,0,0)');vg.addColorStop(.78,'rgba(0,0,0,.72)');vg.addColorStop(1,'rgba(0,0,0,.98)');ctx.fillStyle=vg;ctx.fillRect(0,0,w,h);ctx.strokeStyle='rgba(255,255,255,.16)';ctx.lineWidth=4;ctx.beginPath();ctx.arc(w/2,h*.51,w*.48,Math.PI*1.08,Math.PI*1.92);ctx.stroke();if(wx){for(let i=0;i<18;i++){ctx.fillStyle='rgba(210,235,255,.28)';ctx.beginPath();ctx.ellipse(seeded01(i+500)*w,seeded01(i+650)*h,2+seeded01(i)*5,7+seeded01(i+4)*8,.3,0,7);ctx.fill()}}}
+}
+function drawWheelView(){
+  const [cv,ctx]=canvasCtx('wheelcv');if(!cv||!ctx||!S)return;const w=cv.width,h=cv.height,me=S.cars.find(x=>x.me),speed=visualSpeed(),gear=Math.max(1,Math.min(8,Math.round(speed/42))),therm=tyreThermalState(me);ctx.clearRect(0,0,w,h);const bg=ctx.createRadialGradient(w/2,h*.58,30,w/2,h*.55,w*.65);bg.addColorStop(0,'#28333e');bg.addColorStop(1,'#05080b');ctx.fillStyle=bg;ctx.fillRect(0,0,w,h);
+  ctx.fillStyle='#111820';ctx.strokeStyle='#465565';ctx.lineWidth=7;ctx.beginPath();ctx.moveTo(w*.18,h*.78);ctx.lineTo(w*.12,h*.35);ctx.quadraticCurveTo(w*.2,h*.15,w*.38,h*.22);ctx.lineTo(w*.62,h*.22);ctx.quadraticCurveTo(w*.8,h*.15,w*.88,h*.35);ctx.lineTo(w*.82,h*.78);ctx.quadraticCurveTo(w*.68,h*.92,w*.5,h*.86);ctx.quadraticCurveTo(w*.32,h*.92,w*.18,h*.78);ctx.fill();ctx.stroke();
+  ctx.fillStyle='#030607';ctx.strokeStyle='#6e7c88';ctx.lineWidth=3;ctx.fillRect(w*.32,h*.28,w*.36,h*.38);ctx.strokeRect(w*.32,h*.28,w*.36,h*.38);ctx.fillStyle='#e9eef4';ctx.textAlign='center';ctx.font='900 70px sans-serif';ctx.fillText(gear,w/2,h*.51);ctx.font='900 17px sans-serif';ctx.fillStyle='#a9c9ed';ctx.fillText(speed+' KM/H',w/2,h*.61);ctx.font='bold 12px sans-serif';ctx.fillStyle='#ffcf66';ctx.fillText('SOC '+Math.round(me.battery)+'%   '+(me.otActive?'OVERTAKE READY':'OVERTAKE —'),w/2,h*.33);
+  const labels=[['SURF',Math.round(me.tyreSurface)+'°'],['CORE',Math.round(me.tyreCore)+'°'],['WEAR',Math.round(me.wear)+'%'],['MODE',energyModeLabel(me.energyMode).slice(0,8).toUpperCase()]];labels.forEach((a,i)=>{const x=w*.18+i*w*.21;ctx.fillStyle='#18232c';ctx.fillRect(x,h*.7,w*.16,42);ctx.fillStyle='#82919e';ctx.font='bold 9px sans-serif';ctx.fillText(a[0],x+w*.08,h*.735);ctx.fillStyle=i===0&&therm!=='ok'?'#ff806e':'#fff';ctx.font='900 14px sans-serif';ctx.fillText(a[1],x+w*.08,h*.79)});
+  for(let i=0;i<12;i++){ctx.fillStyle=i<Math.round((speed/330)*12)?(i<8?'#3fb950':i<10?'#ffd400':'#ff4d4d'):'#172027';ctx.beginPath();ctx.arc(w*.33+i*w*.031,h*.21,5,0,7);ctx.fill()}ctx.textAlign='left';
+}
+function renderThermalUI(me){const state=tyreThermalState(me),cfg=TYRE_THERMAL[me.tyre]||TYRE_THERMAL.M;const surf=document.getElementById('tyre-surface'),core=document.getElementById('tyre-core'),sb=document.getElementById('tyre-surface-bar'),cb=document.getElementById('tyre-core-bar'),st=document.getElementById('tyre-thermal-status'),ef=document.getElementById('tyre-thermal-effect');if(surf)surf.textContent=Math.round(me.tyreSurface)+'°C';if(core)core.textContent=Math.round(me.tyreCore)+'°C';if(sb)sb.style.width=Math.max(0,Math.min(100,(me.tyreSurface-40)/90*100))+'%';if(cb)cb.style.width=Math.max(0,Math.min(100,(me.tyreCore-40)/80*100))+'%';if(st){st.textContent=t('thermal.'+state);st.style.color=state==='ok'?'var(--ok)':state==='hot'?'var(--bad)':'var(--wet)'}if(ef)ef.textContent=t('thermal.'+state+'.effect')}
+function calculatePitForecast(tyre){if(!S)return null;const me=S.cars.find(x=>x.me),mult=S.sc>0?.55:S.vsc>0?.7:1,loss=S.c.pit*mult+(me.dmg>0?3:0),projected=me.time+loss,others=S.cars.filter(x=>!x.out&&!x.me).sort((a,b)=>a.time-b.time),pos=1+others.filter(x=>x.time<projected).length,near=others.filter(x=>Math.abs(x.time-projected)<3.2).sort((a,b)=>Math.abs(a.time-projected)-Math.abs(b.time-projected)),order=S.cars.filter(x=>!x.out).sort((a,b)=>a.time-b.time),idx=order.indexOf(me),ahead=idx>0?order[idx-1]:null,gapAhead=ahead?me.time-ahead.time:null;let call=near.length?t('pitforecast.risk'):t('pitforecast.safe');if(ahead&&gapAhead<3.2&&me.wear>ahead.wear+10)call=t('pitforecast.undercut');else if(idx>=0&&idx<order.length-1&&order[idx+1].time-me.time<2.2)call=t('pitforecast.protect');return{loss,pos,lo:Math.max(1,pos-1),hi:Math.min(20,pos+1),near,call,tyre:tyre||me.pitArmed||pickDryCompound(me,S.c)}}
+function renderPitForecast(tyre){const f=calculatePitForecast(tyre);if(!f)return;const a=document.getElementById('pitforecast-loss'),b=document.getElementById('pitforecast-pos'),c=document.getElementById('pitforecast-traffic'),d=document.getElementById('pitforecast-call'),e=document.getElementById('pitforecast-detail');if(a)a.textContent=fmt(t('pitforecast.loss'),f.loss.toFixed(1));if(b)b.textContent=f.lo===f.hi?'P'+f.pos:`P${f.lo}–P${f.hi}`;if(c)c.textContent=f.near.length?fmt(t('pitforecast.cars'),f.near.length):t('pitforecast.clear');if(d)d.textContent=f.call;if(e)e.textContent=f.near.length?fmt(t('pitforecast.detail.traffic'),f.near.slice(0,2).map(x=>x.name).join(', ')):t('pitforecast.detail.clear')}
+function updateInfoSources(){if(!S)return;const me=S.cars.find(x=>x.me),wx=S.wx[Math.min(S.lap,S.wx.length-1)]||0,conf=Math.round(radarConfidenceFor(0)),rs=document.getElementById('source-radar'),ds=document.getElementById('source-driver'),ts=document.getElementById('source-track');if(rs)rs.textContent=fmt(t('source.radar'),conf);const thermal=tyreThermalState(me);if(ds)ds.textContent=wx?t('source.driver.wet'):thermal==='cold'?t('source.driver.front'):thermal==='hot'?t('source.driver.rear'):t('source.driver.stable');if(ts)ts.textContent=wx===2?t('source.track.wet'):wx===1?t('source.track.damp'):t('source.track.dry')}
 
 let trackPts = null, trackRAF = null, lastFrame = 0;
 function mulberry(a){ return function(){ a|=0; a=a+0x6D2B79F5|0; let q=Math.imul(a^a>>>15,1|a); q=q+Math.imul(q^q>>>7,61|q)^q; return ((q^q>>>14)>>>0)/4294967296; }; }
@@ -2265,7 +2377,7 @@ async function buildTrack(ci){
     const realPts=d?pointsFromSvgPath(d):null;
     if(realPts&&realPts.length && S && S.ci===ci){
       setTrackPoints(realPts);
-      drawTrack();
+      renderLiveVisual();
     }
     return !!(realPts&&realPts.length);
   }catch(_e){
@@ -2302,7 +2414,7 @@ function startTrackAnim(){
       cr.vp = S.visualProgress - gapLaps;
     });
 
-    drawTrack();
+    renderLiveVisual();
     trackRAF = requestAnimationFrame(step);
   };
   trackRAF = requestAnimationFrame(step);
@@ -2405,6 +2517,8 @@ function endRace(abandoned){
     item(M.slickRain<=2, t('pg.rain'), M.slickRain<=2 ? t('pg.rain.ok') : fmt(t('pg.rain.ko'), M.slickRain));
   }
   item(M.overWear===0, t('pg.wear'), M.overWear===0 ? t('pg.wear.ok') : fmt(t('pg.wear.ko'), M.overWear));
+  const thermalBad=(M.hotLaps||0)+(M.coldLaps||0),thermalOk=thermalBad<=Math.max(4,Math.round(S.c.laps*.22));
+  item(thermalOk,t('pg.thermal'),thermalOk?t('pg.thermal.ok'):fmt(t('pg.thermal.ko'),thermalBad));
   if(M.scHappened){
     const okSC = M.scPit || M.alreadyStoppedAtSC;
     item(okSC, t('pg.sc'), okSC ? t('pg.sc.ok') : t('pg.sc.ko'));
@@ -2442,7 +2556,7 @@ function endRace(abandoned){
     `<div class="resrow ${cr.me?'me':''}"><span>P${i+1}</span><span>${cr.name}</span><span>${POINTS[i]||0} pt</span></div>`).join('');
   if(myPos>10 && myPos!==99) rows += `<div class="resrow me"><span>P${myPos}</span><span>${me.name}</span><span>0 pt</span></div>`;
   const pag = items.map(x=>`<div class="pagrow"><span>${x.ok?'✅':'❌'}</span><span><b>${x.label}.</b> ${x.note}</span></div>`).join('');
-  const tyreScore=Math.max(20,100-M.overWear*18-M.slickRain*8-(me.used.size<2&&!rainedEver?25:0));
+  const tyreScore=Math.max(20,100-M.overWear*18-M.slickRain*8-Math.max(0,((M.hotLaps||0)+(M.coldLaps||0))-4)*1.4-(me.used.size<2&&!rainedEver?25:0));
   const energyScore=Math.max(20,100-M.energyStarve*20-M.otMissedLowBattery*18);
   const adaptScore=Math.max(20,100-M.spins*20-(M.scHappened&&!M.scPit&&!M.alreadyStoppedAtSC?20:0)-Math.max(0,M.slickRain-2)*10);
   const rulesScore=Math.max(20,100-M.pen*8-(me.used.size<2&&!rainedEver?30:0));

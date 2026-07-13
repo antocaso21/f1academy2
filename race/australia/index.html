@@ -196,15 +196,41 @@
         <div class="tower" id="tower"></div>
       </div>
       <div style="display:flex; flex-direction:column; gap:12px;">
-        <div class="panel">
-          <h3 data-i18n="pan.track">Circuito live</h3>
-          <div class="trackwrap">
-            <canvas id="trackcv" width="760" height="330"></canvas>
+        <div class="panel live-visual-panel">
+          <div class="paneltitle-row">
+            <h3 data-i18n="pan.track">Circuito live</h3>
+            <div class="viewtabs" role="tablist" aria-label="Race view">
+              <button class="viewtab sel" data-view="circuit" onclick="setRaceView('circuit')" data-i18n="view.circuit">Circuito</button>
+              <button class="viewtab" data-view="radar" onclick="setRaceView('radar')" data-i18n="view.radar">Radar</button>
+              <button class="viewtab" data-view="onboard" onclick="setRaceView('onboard')" data-i18n="view.onboard">Onboard</button>
+              <button class="viewtab" data-view="helmet" onclick="setRaceView('helmet')" data-i18n="view.helmet">Helmet Cam</button>
+              <button class="viewtab" data-view="wheel" onclick="setRaceView('wheel')" data-i18n="view.wheel">Volante</button>
+            </div>
+          </div>
+          <div class="visualstage" id="visualstage" data-view="circuit">
+            <canvas class="raceview active" id="trackcv" width="760" height="330" aria-label="Live circuit map"></canvas>
+            <canvas class="raceview" id="radarcv" width="760" height="330" aria-label="Weather radar"></canvas>
+            <canvas class="raceview" id="drivecv" width="760" height="330" aria-label="Simulated driver view"></canvas>
+            <canvas class="raceview" id="wheelcv" width="760" height="330" aria-label="Steering wheel telemetry"></canvas>
             <div class="rainfx" id="rainfx"></div>
+            <div class="viewbadge" id="visual-view-label">LIVE MAP</div>
+          </div>
+          <div class="radar-controls" id="radar-controls" hidden>
+            <span class="sub" data-i18n="radar.forecast">Previsione</span>
+            <button class="radarbtn sel" data-min="0" onclick="setRadarOffset(0)">NOW</button>
+            <button class="radarbtn" data-min="5" onclick="setRadarOffset(5)">+5</button>
+            <button class="radarbtn" data-min="10" onclick="setRadarOffset(10)">+10</button>
+            <button class="radarbtn" data-min="15" onclick="setRadarOffset(15)">+15 min</button>
+            <span class="radar-confidence" id="radar-confidence"></span>
           </div>
           <div class="wxbar">
             <span id="wx-main">☀️ <b>Asciutto</b></span>
             <span class="sub" id="wx-sub"></span>
+          </div>
+          <div class="source-strip" aria-label="Decision information sources">
+            <span id="source-radar">📡 Radar</span>
+            <span id="source-driver">🎧 Pilota</span>
+            <span id="source-track">🛣️ Pista</span>
           </div>
         </div>
         <div class="panel">
@@ -215,6 +241,11 @@
             <span class="sub"><span data-i18n="lbl.wear">Usura</span> <b id="my-wear">0</b>% · <span id="my-extra"></span></span>
           </div>
           <div class="wearwrap"><div class="wearbar" id="wearbar"></div></div>
+          <div class="thermalgrid" aria-label="Tyre temperature telemetry">
+            <div class="thermalcard"><span data-i18n="thermal.surface">Superficie</span><b id="tyre-surface">--°C</b><div class="thermaltrack"><i id="tyre-surface-bar"></i></div></div>
+            <div class="thermalcard"><span data-i18n="thermal.core">Carcassa</span><b id="tyre-core">--°C</b><div class="thermaltrack"><i id="tyre-core-bar"></i></div></div>
+            <div class="thermalcard thermal-status"><span data-i18n="thermal.window">Finestra</span><b id="tyre-thermal-status">—</b><small id="tyre-thermal-effect"></small></div>
+          </div>
           <div class="ctrlrow">
             <button class="btn pacebtn" data-pace="push" onclick="setPace('push')" data-i18n="pace.push">🔥 Spingi</button>
             <button class="btn pacebtn sel" data-pace="norm" onclick="setPace('norm')" data-i18n="pace.norm">⚖️ Normale</button>
@@ -236,6 +267,15 @@
             <div class="telemetryhint" data-i18n="energy.hint">Ricarica costa tempo ma prepara l’attacco; Deployment migliora il giro ma scarica la batteria. L’usura extra compare soprattutto con tanta coppia in trazione, gomme calde o poco grip: non esiste una conversione fissa batteria → usura.</div>
           </div>
           <div class="strategy-advisor" id="strategy-advisor" role="status" aria-live="polite"></div>
+          <div class="pitforecast" id="pitforecast">
+            <div class="pitforecast-head"><b data-i18n="pitforecast.h">Finestra pit e traffico previsto</b><span id="pitforecast-loss"></span></div>
+            <div class="pitforecast-grid">
+              <div><span data-i18n="pitforecast.rejoin">Rientro stimato</span><b id="pitforecast-pos">—</b></div>
+              <div><span data-i18n="pitforecast.traffic">Traffico</span><b id="pitforecast-traffic">—</b></div>
+              <div><span data-i18n="pitforecast.call">Lettura strategica</span><b id="pitforecast-call">—</b></div>
+            </div>
+            <p id="pitforecast-detail"></p>
+          </div>
           <div class="ctrlrow" style="align-items:center;">
             <button class="btn primary" id="btn-box" onclick="toggleBoxMenu()" style="flex:1;">📻 BOX BOX</button>
             <div id="box-compounds" style="display:none; gap:6px;">
@@ -278,7 +318,7 @@
       <label class="settingrow"><span><b data-i18n="settings.motion">Riduci animazioni</b><small data-i18n="settings.motion.d">Riduce movimenti e transizioni.</small></span><input class="switch" id="setting-motion" type="checkbox" onchange="setAppSetting('reducedMotion',this.checked)"></label>
       <label class="settingrow"><span><b data-i18n="settings.contrast">Contrasto elevato</b><small data-i18n="settings.contrast.d">Aumenta contrasto di testo e controlli.</small></span><input class="switch" id="setting-contrast" type="checkbox" onchange="setAppSetting('highContrast',this.checked)"></label>
     </div>
-    <div class="shortcutbox" data-i18n="settings.keys"><b>Scorciatoie gara:</b> <span class="kbd">Spazio</span> pausa, <span class="kbd">N</span> giro, <span class="kbd">1–3</span> ritmo, <span class="kbd">Q–E</span> energia, <span class="kbd">O</span> Overtake, <span class="kbd">B</span> box.</div>
+    <div class="shortcutbox" data-i18n="settings.keys"><b>Scorciatoie gara:</b> <span class="kbd">Spazio</span> pausa, <span class="kbd">N</span> giro, <span class="kbd">1–3</span> ritmo, <span class="kbd">Q–E</span> energia, <span class="kbd">O</span> Overtake, <span class="kbd">B</span> box, <span class="kbd">V</span> visuale, <span class="kbd">R</span> radar.</div>
     <div class="ctrlrow" style="margin-top:14px"><button class="btn danger" onclick="resetCareer()" data-i18n="settings.reset">Azzera carriera e progressi</button><button class="btn primary" onclick="closeSettings()" data-i18n="settings.done">Fatto</button></div>
   </div>
 </dialog>
