@@ -1,0 +1,1 @@
+Extract this package and copy every file and folder into the local f1academy2 repository. Replace files when prompted. Commit and push. Then perform one hard refresh (Ctrl+F5).

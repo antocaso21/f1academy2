@@ -59,3 +59,10 @@ Career progress, settings and the latest generated result are stored locally in 
 ## Race Intelligence upgrade
 
 The live race now includes five switchable views (circuit map, weather radar, simulated onboard, simulated Helmet Cam and steering-wheel telemetry), tyre surface/core temperatures, weather-confidence information and predicted pit rejoin traffic. These are educational visualisations rather than real broadcast or team telemetry.
+
+
+## Visual Suite v3
+Helmet Cam removed. Cockpit and steering-wheel views rebuilt as high-resolution training visualisations. Shared assets are `assets/app-v7.css` and `assets/app-v7.js`.
+
+
+Visual Suite v4 replaces the cockpit and steering-wheel canvases with a higher-fidelity procedural renderer (dynamic track perspective, environment-specific scenery, wet reflections, opponent car, cockpit details, gloves and detailed formula-style wheel). Shared assets: `assets/app-v8.css` and `assets/app-v8.js`.

@@ -17,7 +17,7 @@
 <script>
 (()=>{const b='20260713-hotfix1';window.__MURETTO_BUILD__=b;try{const k='muretto-build';if(localStorage.getItem(k)!==b){localStorage.setItem(k,b);if('caches'in window)caches.keys().then(a=>Promise.all(a.filter(n=>n.startsWith('muretto-')).map(n=>caches.delete(n))));if('serviceWorker'in navigator)navigator.serviceWorker.getRegistrations().then(a=>a.forEach(r=>r.update()));}}catch(_e){}})();
 </script>
-<link rel="stylesheet" href="../../assets/app-v6.css?v=20260713-hotfix1">
+<link rel="stylesheet" href="../../assets/app-v8.css?v=20260713-visual4">
 </head>
 <body>
 <a class="skiplink" href="#main-content" data-i18n="a11y.skip">Salta al contenuto</a>
@@ -206,16 +206,15 @@
             <div class="viewtabs" role="tablist" aria-label="Race view">
               <button class="viewtab sel" data-view="circuit" onclick="setRaceView('circuit')" data-i18n="view.circuit">Circuito</button>
               <button class="viewtab" data-view="radar" onclick="setRaceView('radar')" data-i18n="view.radar">Radar</button>
-              <button class="viewtab" data-view="onboard" onclick="setRaceView('onboard')" data-i18n="view.onboard">Onboard</button>
-              <button class="viewtab" data-view="helmet" onclick="setRaceView('helmet')" data-i18n="view.helmet">Helmet Cam</button>
+              <button class="viewtab" data-view="onboard" onclick="setRaceView('onboard')" data-i18n="view.onboard">Cockpit</button>
               <button class="viewtab" data-view="wheel" onclick="setRaceView('wheel')" data-i18n="view.wheel">Volante</button>
             </div>
           </div>
           <div class="visualstage" id="visualstage" data-view="circuit">
-            <canvas class="raceview active" id="trackcv" width="760" height="330" aria-label="Live circuit map"></canvas>
-            <canvas class="raceview" id="radarcv" width="760" height="330" aria-label="Weather radar"></canvas>
-            <canvas class="raceview" id="drivecv" width="760" height="330" aria-label="Simulated driver view"></canvas>
-            <canvas class="raceview" id="wheelcv" width="760" height="330" aria-label="Steering wheel telemetry"></canvas>
+            <canvas class="raceview active" id="trackcv" width="960" height="540" aria-label="Live circuit map"></canvas>
+            <canvas class="raceview" id="radarcv" width="960" height="540" aria-label="Weather radar"></canvas>
+            <canvas class="raceview" id="drivecv" width="960" height="540" aria-label="Cockpit simulation"></canvas>
+            <canvas class="raceview" id="wheelcv" width="960" height="540" aria-label="Steering wheel telemetry"></canvas>
             <div class="rainfx" id="rainfx"></div>
             <div class="viewbadge" id="visual-view-label">LIVE MAP</div>
           </div>
@@ -326,6 +325,6 @@
     <div class="ctrlrow" style="margin-top:14px"><button class="btn danger" onclick="resetCareer()" data-i18n="settings.reset">Azzera carriera e progressi</button><button class="btn primary" onclick="closeSettings()" data-i18n="settings.done">Fatto</button></div>
   </div>
 </dialog>
-<script src="../../assets/app-v6.js?v=20260713-hotfix1" defer></script>
+<script src="../../assets/app-v8.js?v=20260713-visual4" defer></script>
 </body>
 </html>
