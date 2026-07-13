@@ -1,4 +1,8 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Muretto</title></head><body><script>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Muretto</title>
+<meta name="muretto-build" content="20260713-hotfix1">
+<script>
+(()=>{const b='20260713-hotfix1';window.__MURETTO_BUILD__=b;try{const k='muretto-build';if(localStorage.getItem(k)!==b){localStorage.setItem(k,b);if('caches'in window)caches.keys().then(a=>Promise.all(a.filter(n=>n.startsWith('muretto-')).map(n=>caches.delete(n))));if('serviceWorker'in navigator)navigator.serviceWorker.getRegistrations().then(a=>a.forEach(r=>r.update()));}}catch(_e){}})();
+</script></head><body><script>
 (function(){
   var base=location.hostname.endsWith('github.io')?'/'+location.pathname.split('/').filter(Boolean)[0]+'/':'/';
   var target=location.pathname+location.search+location.hash;

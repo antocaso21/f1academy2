@@ -1,4 +1,4 @@
-const CACHE='muretto-v6-legacy-20260713-hotfix1';
+const CACHE='muretto-v6-20260713-hotfix1';
 const CORE=['./','./index.html','./assets/app-v6.css?v=20260713-hotfix1','./assets/app-v6.js?v=20260713-hotfix1','./manifest.webmanifest','./icons/icon-192.png','./icons/icon-512.png'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('muretto-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));

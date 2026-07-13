@@ -1,0 +1,3 @@
+MURETTO HOTFIX
+
+Copy ALL files and folders from this directory into the local f1academy2 repository. Choose Replace when Windows asks. Then Commit and Push in GitHub Desktop. The new versioned CSS/JS filenames bypass the stale browser cache that caused raw buttons and untranslated keys.
