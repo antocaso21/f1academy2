@@ -1,0 +1,7 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Muretto</title></head><body><script>
+(function(){
+  var base=location.hostname.endsWith('github.io')?'/'+location.pathname.split('/').filter(Boolean)[0]+'/':'/';
+  var target=location.pathname+location.search+location.hash;
+  location.replace(base+'?route='+encodeURIComponent(target));
+})();
+</script><noscript><p>JavaScript is required. <a href="/f1academy2/">Open Muretto Academy</a>.</p></noscript></body></html>

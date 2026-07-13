@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://antocaso21.github.io/f1academy2/sitemap.xml

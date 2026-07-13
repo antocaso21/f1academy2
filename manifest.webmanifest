@@ -1,0 +1,23 @@
+{
+  "name": "Muretto — F1 Strategy Academy",
+  "short_name": "Muretto",
+  "description": "Bilingual Formula 1 strategy training for students and future engineers.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0c1014",
+  "theme_color": "#0c1014",
+  "lang": "it",
+  "icons": [
+    {
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
